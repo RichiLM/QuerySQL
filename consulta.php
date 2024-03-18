@@ -107,13 +107,18 @@
     }
 
     $conn->close();
+
+    if (mysqli_num_rows($result) > 15) {
     ?>
-    <form action="index.php" method="post">
-        <textarea name="consulta"><?php echo $sql_query; ?></textarea>
-        <input class="editar" type="submit" value="Editar Querie" name="editar">
-        <a href="index.php">Volver</a>
-        <a href="index.php" target="_blank">Abrir nuevo index</a>
-    </form>
+        <form action="index.php" method="post">
+            <textarea name="consulta"><?php echo $sql_query; ?></textarea>
+            <input class="editar" type="submit" value="Editar Querie" name="editar">
+            <a href="index.php">Volver</a>
+            <a href="index.php" target="_blank">Abrir nuevo index</a>
+        </form>
+    <?php
+    }
+    ?>
 </body>
 
 </html>
