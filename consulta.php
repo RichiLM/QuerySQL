@@ -79,11 +79,14 @@
     $result = $conn->query($sql_query);
 
     if ($result === TRUE) {
-        echo "La operación se realizó con éxito.";
+        echo "La operación se realizó con éxito.<br>";
+        $rows_affected = $conn->affected_rows;
+        echo "Filas afectadas: $rows_affected";
     } elseif ($result === FALSE) {
         echo "Error al ejecutar la consulta: " . $conn->error;
     } else {
         if ($result->num_rows > 0) {
+            echo "Registros: " . mysqli_num_rows($result);
             echo "<table>";
             echo "<tr>";
             while ($field = $result->fetch_field()) {
