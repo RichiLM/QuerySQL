@@ -85,7 +85,7 @@
     } elseif ($result === FALSE) {
         echo "Error al ejecutar la consulta: " . $conn->error;
     } else {
-        if ($result->num_rows > 0) {
+        if (mysqli_num_rows($result) > 0) {
             echo "Registros: " . mysqli_num_rows($result);
             echo "<table>";
             echo "<tr>";
@@ -101,23 +101,22 @@
                 echo "</tr>";
             }
             echo "</table>";
+            if (mysqli_num_rows($result) > 15) {
+                ?>
+                    <form action="index.php" method="post">
+                        <textarea name="consulta"><?php echo $sql_query; ?></textarea>
+                        <input class="editar" type="submit" value="Editar Querie" name="editar">
+                        <a href="index.php">Volver</a>
+                        <a href="index.php" target="_blank">Abrir nuevo index</a>
+                    </form>
+                <?php
+                }
         } else {
             echo "No se encontraron resultados.";
         }
     }
 
     $conn->close();
-
-    if (mysqli_num_rows($result) > 15) {
-    ?>
-        <form action="index.php" method="post">
-            <textarea name="consulta"><?php echo $sql_query; ?></textarea>
-            <input class="editar" type="submit" value="Editar Querie" name="editar">
-            <a href="index.php">Volver</a>
-            <a href="index.php" target="_blank">Abrir nuevo index</a>
-        </form>
-    <?php
-    }
     ?>
 </body>
 
